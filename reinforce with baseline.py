@@ -5,12 +5,12 @@ import random
 from collections import deque
 import copy
 
-num_episodes = 200              # 游戏训练的总episode数量
-num_exploration_episodes = 100  # 探索过程所占的episode数量
-max_len_episode = 1000          # 每个episode的最大回合数
-batch_size = 32                 # 批次大小
-learning_rate = 1e-3            # 学习率
-gamma = 0.99                      # 折扣因子
+num_episodes = 200      
+num_exploration_episodes = 100 
+max_len_episode = 1000 
+batch_size = 32 
+learning_rate = 1e-3 
+gamma = 0.99   
 beta_entropy = 0.01
 
 class PGN(tf.keras.Model):
@@ -45,15 +45,15 @@ def cal_q(rewards):
     return list(reversed(res))
 
 if __name__ == '__main__':
-    env = gym.make('CartPole-v1')       # 实例化一个游戏环境，参数为游戏名称
+    env = gym.make('CartPole-v1')
     action_nums = env.action_space.n
     net = PGN(actions= action_nums)
     opt = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     for episode_id in range(num_episodes):
         states, actions, rewards =[],[],[]
-        state = env.reset()             # 初始化环境，获得初始状态
+        state = env.reset()
         for t in range(max_len_episode):
-            env.render()                                # 对当前帧进行渲染，绘图到屏幕
+            env.render() 
             
             action,_ = net(np.expand_dims(state, axis=0))
             action = tf.nn.softmax(action).numpy()[0]
