@@ -131,10 +131,6 @@ for episode in range(episodes_num):
             r += gamma * r2
             next_s = next_s2
 
-        # gammaq = tf.reduce_sum(tar_net(next_s)*tf.one_hot(tf.argmax(net(next_s),axis=1),depth=2),axis=1)
-        # y = r + gamma**2*gammaq*(1-is_done)
-        # y_pred = tf.reduce_sum(net(state)*tf.one_hot(action,depth=2),axis = 1)
-
 
         per_buffer.store((state,action,r,next_s,is_done))
         if is_done:
@@ -152,7 +148,6 @@ for episode in range(episodes_num):
                 l = (y-y_pred)**2
                 loss = l *weights
             
-                #loss = tf.keras.losses.mean_squared_error(y_true=y,y_pred=y_pred)
             grads = tape.gradient(loss,net.variables)
             opt.apply_gradients(grads_and_vars=zip(grads, net.variables)) 
             per_buffer.update_pio(abs(y-y_pred),indices)
