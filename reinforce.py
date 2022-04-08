@@ -5,12 +5,12 @@ import random
 from collections import deque
 import copy
 
-num_episodes = 200              # 游戏训练的总episode数量
-num_exploration_episodes = 100  # 探索过程所占的episode数量
-max_len_episode = 1000          # 每个episode的最大回合数
-batch_size = 32                 # 批次大小
-learning_rate = 1e-3            # 学习率
-gamma = 0.99                      # 折扣因子
+num_episodes = 200 
+num_exploration_episodes = 100 
+max_len_episode = 1000
+batch_size = 32 
+learning_rate = 1e-3
+gamma = 0.99 
 beta_entropy = 0.01
 
 class PGN(tf.keras.Model):
